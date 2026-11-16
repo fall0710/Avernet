@@ -11,6 +11,10 @@
 frontend-nextgen 和旧产品仅适配宿主能力。资产构建不进入 Python 运行时，
 不改变本域的任务执行或 Relay 协议。
 
+Backend 侧只负责该资产的 manifest 校验、保存与环境级发现，见
+[task_panel](task_panel/README.md)：内部 `GET`/`POST /api/v1/collaboration/tasks/manifest`，
+无 OpenAPI 镜像，也不承载任务执行行为。
+
 ## 四层目录结构(对齐 `docs/arch/arch.rules.md §8`)
 
 | 层 | 路径 | 职责 |
@@ -38,6 +42,7 @@ core/task/
 │   ├── task_graph_support.py      # 私有 report/状态策略/查询/TaskContext 投影函数
 │   └── relay_report.py            # Relay 两事件回投的原子图谱写入与重放回执
 ├── task_harness/                  # TaskHarness 重试、超时、恢复与 redrive
+├── task_panel/                    # 任务副屏资产 manifest 的校验、保存与环境级发现
 └── task_discovery/                # Bot 候选发现与会话创建
 ```
 
